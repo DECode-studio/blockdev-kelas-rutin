@@ -1,13 +1,13 @@
 import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
 import { ethers } from "hardhat";
-import { StringTest } from "../../typechain-types";
+import { LearnString } from "../../typechain-types";
 import { ContractTransactionResponse } from "ethers";
 import { expect } from "chai";
 
-describe('StringTes', () => {
+describe('LearnString', () => {
     let owner: SignerWithAddress;
     let sender: SignerWithAddress;
-    let contract: StringTest & {
+    let contract: LearnString & {
         deploymentTransaction(): ContractTransactionResponse;
     }
 
