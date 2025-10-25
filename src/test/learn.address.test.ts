@@ -4,7 +4,7 @@ import { LearnAddress } from "../../typechain-types"
 import { ContractTransactionResponse } from "ethers"
 import { expect } from "chai"
 
-describe('Learn Address', () => {
+describe('LearnAddress', () => {
     let owner: SignerWithAddress
     let sender: SignerWithAddress
     let contract: LearnAddress & {

@@ -10,15 +10,19 @@ contract LearnNumber {
         waterLevel = 100;
     }
 
-    function changePlatId(
-        uint256 _plantId
-    ) public {
+    function changePlatId(uint256 _plantId) public {
         plantId = _plantId;
     }
 
-    function addWater(
-        uint256 _waterLevel
-    ) public {
+    function addWater(uint256 _waterLevel) public {
         waterLevel = _waterLevel;
+    }
+
+    function sumData() public view returns (uint256) {
+        return plantId + waterLevel;
+    }
+
+    function sumParam(uint256 a, uint256 b) public pure returns (uint256) {
+        return a + b;
     }
 }
