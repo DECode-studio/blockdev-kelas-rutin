@@ -41,6 +41,24 @@ describe('LearnStruct', () => {
             plant = await contract.myPlant()
             expect(plant.waterLevel).to.equal(200)
         })
+
+
+        it('test frow', async () => {
+            let plant = await contract.myPlant()
+            expect(plant.stage).to.equal(0)
+
+            await contract.grow()
+            plant = await contract.myPlant()
+            expect(plant.stage).to.equal(1)
+
+            await contract.grow()
+            plant = await contract.myPlant()
+            expect(plant.stage).to.equal(2)
+
+            await contract.grow()
+            plant = await contract.myPlant()
+            expect(plant.stage).to.equal(3)
+        })
     })
 
 })
