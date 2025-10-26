@@ -52,6 +52,7 @@ contract LiskGarden {
     }
 
     function depositReward() public payable onlyOwner {}
+    function withdraw() public payable onlyOwner {}
 
     function addPlant(string memory _name) public payable minimumDeposit {
         require(bytes(_name).length > 0, "Plant name cannot be empty");
