@@ -7,11 +7,11 @@
     "generate": "hardhat init",
     "compile": "hardhat compile",
     "clean": "hardhat clean",
-    "deploy": "npx hardhat run src/scripts/deploy.ts --network base",
+    "deploy": "npx hardhat run src/scripts/deploy.ts --network lisk_sepolia",
     "test": "hardhat test ./src/test/*",
     "case-test": "hardhat test ./src/test/app.test.ts",
     "real-test": "hardhat test ./src/test/real.test.ts",
-    "flatten": "hardhat flatten src/contracts/PaymentGatewayAerodrome.sol > src/flattened_contracts/pg_aerodrome_flattened.sol"
+    "flatten": "hardhat flatten src/contracts/lisk-garden.sol > src/flattened_contracts/lisk_garden_flattened.sol"
   },
   "keywords": [],
   "author": "",

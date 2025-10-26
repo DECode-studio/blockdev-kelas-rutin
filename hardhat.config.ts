@@ -81,6 +81,10 @@ const config: HardhatUserConfig = {
       url: process.env.RPC_BNB_TESTNET_URL ?? "",
       accounts: [process.env.PRIVATE_KEY ?? ""]
     },
+    lisk_sepolia: {
+      url: 'https://rpc.sepolia-api.lisk.com',
+      accounts: [process.env.PRIVATE_KEY ?? ""]
+    },
   }
 };
 
