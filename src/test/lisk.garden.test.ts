@@ -12,7 +12,7 @@ describe("LiskGarden", () => {
 
     before(async () => {
         [owner, player1, player2] = await ethers.getSigners();
-        const contractFactory = await ethers.getContractFactory("PlantGame");
+        const contractFactory = await ethers.getContractFactory("LiskGarden");
         contract = await contractFactory.deploy();
     });
 
