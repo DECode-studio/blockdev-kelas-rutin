@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.30;
 
-contract PlantGame {
+contract LiskGarden {
     address public owner;
     uint256 public constant MIN_DEPOSIT = 0.001 ether;
     uint256 public constant WATER_THRESHOLD = 500;
 
     enum GrowthStage {
-        SEED, // 0
-        SPROUT, // 1
-        GROWING, // 2
-        BLOOMING // 3
+        SEED,
+        SPROUT,
+        GROWING,
+        BLOOMING
     }
 
     struct Plant {

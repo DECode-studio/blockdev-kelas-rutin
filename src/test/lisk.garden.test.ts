@@ -4,7 +4,7 @@ import { PlantGame } from "../../typechain-types";
 import { ContractTransactionResponse, EventLog, Log } from "ethers";
 import { expect } from "chai";
 
-describe("Plant Game", () => {
+describe("LiskGarden", () => {
     let owner: SignerWithAddress;
     let player1: SignerWithAddress;
     let player2: SignerWithAddress;
