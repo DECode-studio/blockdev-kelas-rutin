@@ -76,6 +76,10 @@ contract LiskGarden {
 
         require(plant.owner != address(0), "Your plant is not found");
         require(plant.isAlive, "Your plant is not alive");
+        require(
+            plant.stage != GrowthStage.BLOOMING,
+            "Yor plant has already BOOMING"
+        );
 
         bool dead = isDead();
         if (dead) {
@@ -84,7 +88,7 @@ contract LiskGarden {
         require(!dead, "Your plant is dead, you can't water it");
 
         uint256 depoValue = (msg.value / MIN_DEPOSIT) * 100;
-        plant.waterLevel += uint8(depoValue);
+        plant.waterLevel += uint16(depoValue);
         plant.lastWatered = block.timestamp;
 
         if (
@@ -102,6 +106,7 @@ contract LiskGarden {
             plant.stage == GrowthStage.GROWING
         ) {
             plant.stage = GrowthStage.BLOOMING;
+            sendReward();
         }
 
         emit PlantWatered(plant.id, msg.sender, plant.waterLevel, plant.stage);
@@ -122,11 +127,27 @@ contract LiskGarden {
         require(plant.owner != address(0), "Plant not found");
 
         uint256 lastWatered = plant.lastWatered;
-        if (lastWatered == 0) {
+        GrowthStage stage = plant.stage;
+
+        if (lastWatered == 0 || stage == GrowthStage.BLOOMING) {
             return false;
         }
 
         uint256 timeSinceWatered = block.timestamp - lastWatered;
         return timeSinceWatered >= 3 minutes;
+    }
+
+    function sendReward() private {
+        Plant storage plant = plants[msg.sender];
+        require(plant.owner != address(0), "Your plant is not found");
+
+        uint16 multiply = uint16(plant.waterLevel / 1500);
+        require(multiply > 0, "No reward yet");
+
+        uint256 reward = MIN_DEPOSIT * multiply;
+        require(address(this).balance >= reward, "Not enough ETH in contract");
+
+        (bool sent, ) = payable(msg.sender).call{value: reward}("");
+        require(sent, "Failed to send reward");
     }
 }
