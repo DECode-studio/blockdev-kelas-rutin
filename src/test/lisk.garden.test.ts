@@ -1,6 +1,6 @@
 import { SignerWithAddress } from "@nomicfoundation/hardhat-ethers/signers";
 import { ethers } from "hardhat";
-import { PlantGame } from "../../typechain-types";
+import { LiskGarden } from "../../typechain-types";
 import { ContractTransactionResponse, EventLog, Log } from "ethers";
 import { expect } from "chai";
 
@@ -8,7 +8,7 @@ describe("LiskGarden", () => {
     let owner: SignerWithAddress;
     let player1: SignerWithAddress;
     let player2: SignerWithAddress;
-    let contract: PlantGame & { deploymentTransaction(): ContractTransactionResponse };
+    let contract: LiskGarden & { deploymentTransaction(): ContractTransactionResponse };
 
     before(async () => {
         [owner, player1, player2] = await ethers.getSigners();
@@ -71,6 +71,23 @@ describe("LiskGarden", () => {
         expect(plant.waterLevel).to.be.greaterThan(0);
         expect(plant.stage).to.be.oneOf([0n, 1n]);
     });
+
+    it('should get reward when the plant has bloomed', async () => {
+
+        for (let i = 0; i < 13; i++) {
+            const tx1 = await contract.connect(player1).water({ value: ethers.parseEther("0.001") });
+            await tx1.wait();
+        }
+
+        const tx = await contract.connect(player1).water({ value: ethers.parseEther("0.001") });
+        const receipt = await tx.wait();
+
+        const wateredEvent = receipt?.logs.find((log: Log | EventLog) => (log as EventLog).fragment?.name === "PlantWatered");
+        expect((wateredEvent as EventLog)?.args?.owner).to.equal(player1.address);
+
+        const event = receipt?.logs.find((log: Log | EventLog) => (log as EventLog).fragment?.name === "RewardGranted");
+        expect((event as EventLog)?.args?.to).to.equal(player1.address);
+    })
 
     it("should return correct age of plant", async () => {
         const age = await contract.connect(player1).calculateAge();

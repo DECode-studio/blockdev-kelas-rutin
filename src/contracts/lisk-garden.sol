@@ -28,6 +28,7 @@ contract LiskGarden {
     uint32 public plantCounter;
     mapping(address => Plant) public plants;
 
+    event RewardGranted(address to, uint256 amount);
     event PlantAdded(uint32 plantId, address owner);
     event PlantWatered(
         uint32 plantId,
@@ -149,5 +150,7 @@ contract LiskGarden {
 
         (bool sent, ) = payable(msg.sender).call{value: reward}("");
         require(sent, "Failed to send reward");
+
+        emit RewardGranted(msg.sender, reward);
     }
 }
