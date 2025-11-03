@@ -4,7 +4,7 @@ async function main() {
   const [deployer] = await ethers.getSigners();
   console.log("Deploying contracts with the account :", deployer.address);
 
-  const contractFactory = await ethers.getContractFactory("LiskGarden")
+  const contractFactory = await ethers.getContractFactory("GardenNFT")
   const contract = await contractFactory.deploy()
   const contractAddress = await contract.getAddress()
 
